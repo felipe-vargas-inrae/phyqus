@@ -96,6 +96,16 @@ sh-math:toTargetUnitGeneric
         sh:returnType  xsd:decimal ;
         sh:select      "\n        PREFIX qudt: <http://qudt.org/schema/qudt/>\n        PREFIX unit: <http://qudt.org/vocab/unit/>\n        PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n        SELECT ( xsd:double (($quantityValue + ?O1)*?M11) / xsd:double(?M22) - ?O2 AS ?result)\n        WHERE {\n         OPTIONAL {$unit1 qudt:conversionMultiplier ?M1 . }\n         OPTIONAL {$unit1 qudt:conversionOffset ?offset1 .  }\n         BIND( if ( bound(?offset1), ?offset1, 0.0) AS ?O1 )\n         BIND( if ( bound(?M1), ?M1, 0.0) AS ?M11 )\n\n         OPTIONAL {$unit2 qudt:conversionMultiplier ?M2 . }\n         OPTIONAL {$unit2 qudt:conversionOffset ?offset2 .  }\n         BIND( if ( bound(?offset2), ?offset2, 0.0) AS ?O2 )\n         BIND( if ( bound(?M2), ?M2, 1.0) AS ?M22 )\n        }\n        " .
 
+sh-math:toWIKIDATAfromQUDT
+        rdf:type       sh:SPARQLFunction ;
+        rdfs:comment   "Transform a WIKIDATA unit into a QUDT Unit." ;
+        sh:parameter   [ sh:datatype     qudt:Unit ;
+                         sh:description  "A unit of QUDT" ;
+                         sh:path         sh-math:unit1
+                       ] ;
+        sh:returnType  qudt:Unit ;
+        sh:select      "\n        PREFIX qudt: <http://qudt.org/schema/qudt/>\n        PREFIX unit: <http://qudt.org/vocab/unit/>\n        PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n        PREFIX wdtn: <http://www.wikidata.org/prop/direct-normalized/>\n        SELECT ?unitWIKIDATA\n        WHERE {\n          ?unitWIKIDATA wdtn:P2968 $unit1\n        }\n        " .
+
 sh-math:toBaseUnit  rdf:type  sh:SPARQLFunction ;
         rdfs:comment   "Transform the quantity value to the base unit. The quantity can be an scale of the base unit like cm or mm, or other unit like inches" ;
         sh:parameter   [ sh:datatype     qudt:QuantityValue ;
@@ -114,16 +124,6 @@ sh-math:toQUDTfromWIKIDATA
                        ] ;
         sh:returnType  qudt:Unit ;
         sh:select      "\n        PREFIX qudt: <http://qudt.org/schema/qudt/>\n        PREFIX unit: <http://qudt.org/vocab/unit/>\n        PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n        PREFIX wdtn: <http://www.wikidata.org/prop/direct-normalized/>\n        SELECT ?unitQUDT\n        WHERE {\n          $unit1 wdtn:P2968 ?unitQUDT\n        }\n        " .
-
-sh-math:toWIKIDATAfromQUDT
-        rdf:type       sh:SPARQLFunction ;
-        rdfs:comment   "Transform a WIKIDATA unit into a QUDT Unit." ;
-        sh:parameter   [ sh:datatype     qudt:Unit ;
-                         sh:description  "A unit of QUDT" ;
-                         sh:path         sh-math:unit1
-                       ] ;
-        sh:returnType  qudt:Unit ;
-        sh:select      "\n        PREFIX qudt: <http://qudt.org/schema/qudt/>\n        PREFIX unit: <http://qudt.org/vocab/unit/>\n        PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n        PREFIX wdtn: <http://www.wikidata.org/prop/direct-normalized/>\n        SELECT ?unitWIKIDATA\n        WHERE {\n          ?unitWIKIDATA wdtn:P2968 $unit1\n        }\n        " .
 
 sh-math:getBaseUnit  rdf:type  sh:SPARQLFunction ;
         rdfs:comment   "Get the base unit from a given unit" ;
