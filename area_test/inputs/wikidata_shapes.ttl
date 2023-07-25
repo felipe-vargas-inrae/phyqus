@@ -1,0 +1,61 @@
+@prefix sparql:    <http://datashapes.org/sparql#> .
+@prefix sh:        <http://www.w3.org/ns/shacl#> .
+@prefix sh-math:   <http://www.inrae.fr/shacl-math/> .
+
+@prefix expre:     <http://www.inrae.org/expression/>.
+@prefix rdf:       <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix xsd:       <http://www.w3.org/2001/XMLSchema#>.
+@prefix rdfs:      <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix dbo:       <http://dbpedia.org/ontology/>.
+@prefix ex:        <http://www.example.org#>.
+
+@prefix qudt:      <http://qudt.org/schema/qudt/>.
+@prefix unit:      <http://qudt.org/vocab/unit/>.
+
+#wikidata
+@prefix p:         <http://www.wikidata.org/prop/>.
+@prefix psv:       <http://www.wikidata.org/prop/statement/value/>.
+@prefix wikibase:  <http://wikiba.se/ontology#>.
+@prefix wdtn:      <http://www.wikidata.org/prop/direct-normalized/>.
+
+
+
+ex:AreaShape
+  a sh:NodeShape ;
+  sh:targetSubjectsOf p:P2046 . #area property
+
+#ex:AreaShape
+#  sh-math:ruleTemplate [
+##            a sh-math:NodeRule ;
+#            sh:path p:P2046 ; # note this property is also used as target
+#            sh:values [ sh-math:toTargetUnitGeneric (
+#              [ sh:path (
+#                p:P2046 psv:P2046 wikibase:quantityAmount ) ]  # quantity real value
+#              [ sh:path (
+#                p:P2046 psv:P2046 wikibase:quantityUnit wdtn:P2968 ) ]  # quantity unit in qudt
+#              sh-math:queryParam1 # a param obtained from a query
+#            ) ] ] .
+
+
+#ex:AreaShape
+#  rdf:type sh:NodeShape ;
+#  sh:deactivated false ;
+#  sh:rule [ rdf:type sh-math:NodeRule ;
+#            sh:path p:P2046 ;
+#            sh:values [ sh-math:toTargetUnitGeneric (
+#              [ sh:path (
+#                p:P2046 psv:P2046 wikibase:quantityAmount ) ]
+#              [ sh:path (
+#                p:P2046 psv:P2046 wikibase:quantityUnit wdtn:P2968 ) ]
+#              [ sh:path (
+#                <http://www.wikidata.org/entity/Q25343> wdtn:P2968 ) ] ) ] ] ;
+#  sh:rule [ rdf:type sh-math:NodeRule ;
+#            sh:path p:P2046 ;
+#            sh:values [ sh-math:toTargetUnitGeneric (
+#              [ sh:path (
+#                p:P2046 psv:P2046 wikibase:quantityAmount ) ]
+#              [ sh:path (
+#                p:P2046 psv:P2046 wikibase:quantityUnit wdtn:P2968 ) ]
+#              [ sh:path (
+#                <http://www.wikidata.org/entity/Q25343> wdtn:P2968 ) ] ) ] ] ;
+#  sh:targetSubjectsOf p:P2046 .

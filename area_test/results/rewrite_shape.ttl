@@ -1,0 +1,135 @@
+@prefix bkn:      <http://www.blankNode.org/variables#> .
+@prefix dbo:      <http://dbpedia.org/ontology/> .
+@prefix ex:       <http://www.example.org#> .
+@prefix expre:    <http://www.inrae.org/expression/> .
+@prefix lfn:      <http://www.dotnetrdf.org/leviathan#> .
+@prefix math:     <http://www.w3.org/2005/xpath-functions/math#> .
+@prefix meteo-ex: <http://www.meteo-example.org#> .
+@prefix owl:      <http://www.w3.org/2002/07/owl#> .
+@prefix p:        <http://www.wikidata.org/prop/> .
+@prefix psv:      <http://www.wikidata.org/prop/statement/value/> .
+@prefix qudt:     <http://qudt.org/schema/qudt/> .
+@prefix rdf:      <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:     <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh:       <http://www.w3.org/ns/shacl#> .
+@prefix sh-math:  <http://www.inrae.fr/shacl-math/> .
+@prefix sosa:     <http://www.w3.org/ns/sosa/> .
+@prefix sparql:   <http://datashapes.org/sparql#> .
+@prefix time:     <http://www.w3.org/2006/time#> .
+@prefix unit:     <http://qudt.org/vocab/unit/> .
+@prefix wdtn:     <http://www.wikidata.org/prop/direct-normalized/> .
+@prefix wikibase: <http://wikiba.se/ontology#> .
+@prefix xsd:      <http://www.w3.org/2001/XMLSchema#> .
+
+ex:AreaShape  rdf:type       sh:NodeShape ;
+        sh:deactivated       false ;
+        sh:rule              [ rdf:type      sh-math:NodeRule ;
+                               sh:condition  [ sh:not  [ rdf:type  sh:PropertyShape ;
+                                                         sh:in     ( <http://www.wikidata.org/entity/Q25343> ) ;
+                                                         sh:path   ( p:P2046 psv:P2046 wikibase:quantityUnit )
+                                                       ]
+                                             ] ;
+                               sh:path       p:P2046 ;
+                               sh:values     [ sh-math:createQuantityWikidata  ( psv:P2046
+                                                                                 [ sh-math:toTargetUnitGeneric  ( [ sh:path  ( p:P2046 psv:P2046 wikibase:quantityAmount )
+                                                                                                                  ]
+                                                                                                                  [ sh:path  ( p:P2046 psv:P2046 wikibase:quantityUnit wdtn:P2968 )
+                                                                                                                  ]
+                                                                                                                  [ sh-math:toQUDTfromWIKIDATA  ( <http://www.wikidata.org/entity/Q25343> )
+                                                                                                                  ]
+                                                                                                                )
+                                                                                 ]
+                                                                                 <http://www.wikidata.org/entity/Q25343>
+                                                                               )
+                                             ]
+                             ] ;
+        sh:rule              [ rdf:type      sh-math:NodeRule ;
+                               sh:condition  [ sh:not  [ rdf:type  sh:PropertyShape ;
+                                                         sh:in     ( <http://www.wikidata.org/entity/Q232291> ) ;
+                                                         sh:path   ( p:P2046 psv:P2046 wikibase:quantityUnit )
+                                                       ]
+                                             ] ;
+                               sh:path       p:P2046 ;
+                               sh:values     [ sh-math:createQuantityWikidata  ( psv:P2046
+                                                                                 [ sh-math:toTargetUnitGeneric  ( [ sh:path  ( p:P2046 psv:P2046 wikibase:quantityAmount )
+                                                                                                                  ]
+                                                                                                                  [ sh:path  ( p:P2046 psv:P2046 wikibase:quantityUnit wdtn:P2968 )
+                                                                                                                  ]
+                                                                                                                  [ sh-math:toQUDTfromWIKIDATA  ( <http://www.wikidata.org/entity/Q232291> )
+                                                                                                                  ]
+                                                                                                                )
+                                                                                 ]
+                                                                                 <http://www.wikidata.org/entity/Q232291>
+                                                                               )
+                                             ]
+                             ] ;
+        sh:targetSubjectsOf  p:P2046 .
+
+sh-math:toTargetUnit  rdf:type  sh:SPARQLFunction ;
+        rdfs:comment   "Transform the quantity value to a target unit." ;
+        sh:parameter   [ sh:datatype     qudt:Unit ;
+                         sh:description  "The target unit" ;
+                         sh:path         sh-math:unit2
+                       ] ;
+        sh:parameter   [ sh:datatype     qudt:QuantityValue ;
+                         sh:description  "The input quantity" ;
+                         sh:path         sh-math:op1
+                       ] ;
+        sh:returnType  xsd:decimal ;
+        sh:select      "\n        PREFIX qudt: <http://qudt.org/schema/qudt/>\n        PREFIX unit: <http://qudt.org/vocab/unit/>\n        PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n        SELECT ( xsd:double ((?value + ?O1)*?M11) / xsd:double(?M22) - ?O2 AS ?result)\n        WHERE {\n          $op1  qudt:numericValue ?value;\n                qudt:unit ?unit1.\n\n         OPTIONAL {?unit1 qudt:conversionMultiplier ?M1 . }\n         OPTIONAL {?unit1 qudt:conversionOffset ?offset1 .  }\n         BIND( if ( bound(?offset1), ?offset1, 0.0) AS ?O1 )\n         BIND( if ( bound(?M1), ?M1, 0.0) AS ?M11 )\n\n         OPTIONAL {$unit2 qudt:conversionMultiplier ?M2 . }\n         OPTIONAL {$unit2 qudt:conversionOffset ?offset2 .  }\n         BIND( if ( bound(?offset2), ?offset2, 0.0) AS ?O2 )\n         BIND( if ( bound(?M2), ?M2, 1.0) AS ?M22 )\n        }\n        " .
+
+sh-math:toTargetUnitGeneric
+        rdf:type       sh:SPARQLFunction ;
+        rdfs:comment   "Transform the quantity value to a target unit." ;
+        sh:parameter   [ sh:datatype     qudt:Unit ;
+                         sh:description  "The target unit" ;
+                         sh:path         sh-math:unit2
+                       ] ;
+        sh:parameter   [ sh:datatype     qudt:Unit ;
+                         sh:description  "The source unit" ;
+                         sh:path         sh-math:unit1
+                       ] ;
+        sh:parameter   [ sh:datatype     xsd:double ;
+                         sh:description  "The value in the current unit" ;
+                         sh:path         sh-math:quantityValue
+                       ] ;
+        sh:returnType  xsd:decimal ;
+        sh:select      "\n        PREFIX qudt: <http://qudt.org/schema/qudt/>\n        PREFIX unit: <http://qudt.org/vocab/unit/>\n        PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n        SELECT ( xsd:double (($quantityValue + ?O1)*?M11) / xsd:double(?M22) - ?O2 AS ?result)\n        WHERE {\n         OPTIONAL {$unit1 qudt:conversionMultiplier ?M1 . }\n         OPTIONAL {$unit1 qudt:conversionOffset ?offset1 .  }\n         BIND( if ( bound(?offset1), ?offset1, 0.0) AS ?O1 )\n         BIND( if ( bound(?M1), ?M1, 0.0) AS ?M11 )\n\n         OPTIONAL {$unit2 qudt:conversionMultiplier ?M2 . }\n         OPTIONAL {$unit2 qudt:conversionOffset ?offset2 .  }\n         BIND( if ( bound(?offset2), ?offset2, 0.0) AS ?O2 )\n         BIND( if ( bound(?M2), ?M2, 1.0) AS ?M22 )\n        }\n        " .
+
+sh-math:toBaseUnit  rdf:type  sh:SPARQLFunction ;
+        rdfs:comment   "Transform the quantity value to the base unit. The quantity can be an scale of the base unit like cm or mm, or other unit like inches" ;
+        sh:parameter   [ sh:datatype     qudt:QuantityValue ;
+                         sh:description  "The input quantity" ;
+                         sh:path         sh-math:op1
+                       ] ;
+        sh:returnType  xsd:decimal ;
+        sh:select      "\n        PREFIX qudt: <http://qudt.org/schema/qudt/>\n        SELECT   ?result\n        WHERE {\n            $op1  qudt:numericValue ?value;\n                qudt:unit ?unit.\n            ?unit  qudt:conversionMultiplier ?multiplier .\n            #Compute conversion\n            BIND( ?multiplier*?value   AS ?convertDirect)\n            OPTIONAL{\n                ?unit  qudt:conversionOffset ?offset.\n            }\n            BIND( if(bound(?offset), (?offset+?value) * ?multiplier, ?convertDirect) as ?result)\n        }\n        " .
+
+sh-math:toQUDTfromWIKIDATA
+        rdf:type       sh:SPARQLFunction ;
+        rdfs:comment   "Transform a QUDT unit into a Wikidata Unit." ;
+        sh:parameter   [ sh:datatype     xsd:double ;
+                         sh:description  "A unit of WIKIDATA" ;
+                         sh:path         sh-math:unit1
+                       ] ;
+        sh:returnType  qudt:Unit ;
+        sh:select      "\n        PREFIX qudt: <http://qudt.org/schema/qudt/>\n        PREFIX unit: <http://qudt.org/vocab/unit/>\n        PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n        PREFIX wdtn: <http://www.wikidata.org/prop/direct-normalized/>\n        SELECT ?unitQUDT\n        WHERE {\n          $unit1 wdtn:P2968 ?unitQUDT\n        }\n        " .
+
+sh-math:toWIKIDATAfromQUDT
+        rdf:type       sh:SPARQLFunction ;
+        rdfs:comment   "Transform a WIKIDATA unit into a QUDT Unit." ;
+        sh:parameter   [ sh:datatype     qudt:Unit ;
+                         sh:description  "A unit of QUDT" ;
+                         sh:path         sh-math:unit1
+                       ] ;
+        sh:returnType  qudt:Unit ;
+        sh:select      "\n        PREFIX qudt: <http://qudt.org/schema/qudt/>\n        PREFIX unit: <http://qudt.org/vocab/unit/>\n        PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n        PREFIX wdtn: <http://www.wikidata.org/prop/direct-normalized/>\n        SELECT ?unitWIKIDATA\n        WHERE {\n          ?unitWIKIDATA wdtn:P2968 $unit1\n        }\n        " .
+
+sh-math:getBaseUnit  rdf:type  sh:SPARQLFunction ;
+        rdfs:comment   "Get the base unit from a given unit" ;
+        sh:parameter   [ sh:datatype     qudt:Unit ;
+                         sh:description  "The input unit" ;
+                         sh:path         sh-math:op1
+                       ] ;
+        sh:returnType  qudt:Unit ;
+        sh:select      "\n        PREFIX qudt: <http://qudt.org/schema/qudt/>\n\t\tSELECT  (?unit2 AS ?result)\n        WHERE {\n            $op1  qudt:hasDimensionVector ?dimVector .\n            ?unit2 qudt:hasDimensionVector ?dimVector.\n            ?unit2  qudt:conversionMultiplier ?multiplier2 .\n            FILTER(?multiplier2= 1.0).\n            FILTER NOT EXISTS { ?unit2 qudt:conversionOffset ?offset }\n        }\n\t\t" .

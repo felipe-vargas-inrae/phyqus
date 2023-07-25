@@ -1,0 +1,12 @@
+{
+  "experimentName": "Area automatic unit conversion WIKIDATA",
+  "rootPath": "",
+  "graphPath": "inputs/cities_mappings.ttl",
+  "shapePath": "inputs/wikidata_shapes.ttl",
+  "queryPath" : "inputs/query_cities.sparql",
+  "outInferencePath" :"results/inference_area.ttl",
+  "outReportPath": "results/report_area_WD.json",
+  "outResultSet" : "results/result_set_area_WD.csv",
+  "outShape" : "results/rewrite_shape.ttl",
+  "method" : "VIRTUAL"
+}
