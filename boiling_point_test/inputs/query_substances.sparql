@@ -1,0 +1,24 @@
+
+PREFIX p:         <http://www.wikidata.org/prop/>
+PREFIX psv:       <http://www.wikidata.org/prop/statement/value/>
+PREFIX wikibase:  <http://wikiba.se/ontology#>
+PREFIX wd:       <http://www.wikidata.org/entity/>
+PREFIX wdt:      <http://www.wikidata.org/prop/direct/>
+
+SELECT ?subs ?BPInKelvin ?BPInCelsius ?BPInFahrenheit
+WHERE {
+	?subs  p:P2102 ?valueNodeStm. # Boiling Point property
+	?valueNodeStm psv:P2102 ?quantityValue.
+	?quantityValue wikibase:quantityAmount ?BPInKelvin.
+	?quantityValue wikibase:quantityUnit  wd:Q11579. # retrieve the boiling point in kelvin
+
+    # ?subs  p:P2102 ?valueNodeStm2. # Boiling Point property
+	# ?valueNodeStm2 psv:P2102 ?quantityValue2.
+	# ?quantityValue2 wikibase:quantityAmount ?BPInCelsius.
+	# ?quantityValue2 wikibase:quantityUnit  wd:Q25267. # retrieve the boiling point in celsius
+
+    # ?subs  p:P2102 ?valueNodeStm3. # Boiling Point property
+	# ?valueNodeStm3 psv:P2102 ?quantityValue3.
+	# ?quantityValue3 wikibase:quantityAmount ?BPInFahrenheit.
+	# ?quantityValue3 wikibase:quantityUnit  wd:Q42289. # retrieve the boiling point in fahrenheit
+}

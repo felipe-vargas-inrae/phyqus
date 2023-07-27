@@ -1,0 +1,12 @@
+{
+  "experimentName": "Boiling Point automatic unit conversion WIKIDATA",
+  "rootPath": "",
+  "graphPath": "inputs/substances_mappings.ttl",
+  "shapePath": "inputs/wikidata_shapes.ttl",
+  "queryPath" : "inputs/query_substances.sparql",
+  "outInferencePath" :"results/inference_substances.ttl",
+  "outReportPath": "results/report_substances_WD.json",
+  "outResultSet" : "results/result_set_substances_WD.csv",
+  "outShape" : "results/rewrite_shape.ttl",
+  "method" : "VIRTUAL"
+}

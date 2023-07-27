@@ -1,0 +1,24 @@
+@prefix sparql:    <http://datashapes.org/sparql#> .
+@prefix sh:        <http://www.w3.org/ns/shacl#> .
+@prefix sh-math:   <http://www.inrae.fr/shacl-math/> .
+
+@prefix expre:     <http://www.inrae.org/expression/>.
+@prefix rdf:       <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix xsd:       <http://www.w3.org/2001/XMLSchema#>.
+@prefix rdfs:      <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix dbo:       <http://dbpedia.org/ontology/>.
+@prefix ex:        <http://www.example.org#>.
+
+@prefix qudt:      <http://qudt.org/schema/qudt/>.
+@prefix unit:      <http://qudt.org/vocab/unit/>.
+
+#wikidata
+@prefix p:         <http://www.wikidata.org/prop/>.
+@prefix psv:       <http://www.wikidata.org/prop/statement/value/>.
+@prefix wikibase:  <http://wikiba.se/ontology#>.
+@prefix wdtn:      <http://www.wikidata.org/prop/direct-normalized/>.
+
+
+ex:BoilingPointShape
+  a sh:NodeShape ;
+  sh:targetSubjectsOf p:P2102 . #boiling point property

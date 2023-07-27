@@ -1,0 +1,11 @@
+subject,predicate,object,context
+http://www.wikidata.org/entity/Q720055,http://www.wikidata.org/prop/direct-normalized/P2968,http://qudt.org/vocab/unit/PlanckTemperature,
+http://www.wikidata.org/entity/Q720055,http://www.w3.org/2000/01/rdf-schema#label,Planck temperature,
+http://www.wikidata.org/entity/Q25267,http://www.wikidata.org/prop/direct-normalized/P2968,http://qudt.org/vocab/unit/DEG_C,
+http://www.wikidata.org/entity/Q25267,http://www.w3.org/2000/01/rdf-schema#label,degree Celsius,
+http://www.wikidata.org/entity/Q37732658,http://www.wikidata.org/prop/direct-normalized/P2968,http://qudt.org/vocab/unit/DEG_R,
+http://www.wikidata.org/entity/Q37732658,http://www.w3.org/2000/01/rdf-schema#label,degree Rankine,
+http://www.wikidata.org/entity/Q11579,http://www.wikidata.org/prop/direct-normalized/P2968,http://qudt.org/vocab/unit/K,
+http://www.wikidata.org/entity/Q11579,http://www.w3.org/2000/01/rdf-schema#label,kelvin,
+http://www.wikidata.org/entity/Q42289,http://www.wikidata.org/prop/direct-normalized/P2968,http://qudt.org/vocab/unit/DEG_F,
+http://www.wikidata.org/entity/Q42289,http://www.w3.org/2000/01/rdf-schema#label,degree Fahrenheit,

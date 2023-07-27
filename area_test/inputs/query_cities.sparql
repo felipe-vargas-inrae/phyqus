@@ -5,21 +5,26 @@ PREFIX wikibase:  <http://wikiba.se/ontology#>
 PREFIX wd:       <http://www.wikidata.org/entity/>
 PREFIX wdt:      <http://www.wikidata.org/prop/direct/>
 
-SELECT ?city ?areaInSqMi ?areaInSqMeters
+SELECT ?city ?areaInSqMi ?areaInSqMeters ?areaInSqKM
 WHERE {
 
 	?city wdt:P31 wd:Q515. #city subclasses of city also annotated as cities
 	
-	?city  p:P2046 ?valueNodeStm. # area property
-	?valueNodeStm psv:P2046 ?quantityValue.
-	?quantityValue wikibase:quantityAmount ?areaInSqMi.
-	?quantityValue wikibase:quantityUnit  wd:Q232291. # retrieve the area in square miles
+	# ?city  p:P2046 ?valueNodeStm. # area property
+	# ?valueNodeStm psv:P2046 ?quantityValue.
+	# ?quantityValue wikibase:quantityAmount ?areaInSqMi.
+	# ?quantityValue wikibase:quantityUnit  wd:Q232291. # retrieve the area in square miles
 
 
-	?city  p:P2046 ?valueNodeStm2. # area property
-    ?valueNodeStm2 psv:P2046 ?quantityValue2.
-    ?quantityValue2 wikibase:quantityAmount ?areaInSqMeters.
-    ?quantityValue2 wikibase:quantityUnit  wd:Q25343. # retrieve the area in square meters
+	# ?city  p:P2046 ?valueNodeStm2. # area property
+    # ?valueNodeStm2 psv:P2046 ?quantityValue2.
+    # ?quantityValue2 wikibase:quantityAmount ?areaInSqMeters.
+    # ?quantityValue2 wikibase:quantityUnit  wd:Q25343. # retrieve the area in square meters
+
+	?city  p:P2046 ?valueNodeStm3. # area property
+    ?valueNodeStm3 psv:P2046 ?quantityValue3.
+    ?quantityValue3 wikibase:quantityAmount ?areaInSqKM.
+    ?quantityValue3 wikibase:quantityUnit  wd:Q712226. # retrieve the area in square KM
 
     # most of the data is in square kilometers
 }
